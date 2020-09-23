@@ -50,7 +50,19 @@ jobs:
 
       script:
       - travis-ci/setup_tasks.sh
-      deploy:
+      
+      #PPC64LE
+    - <<: *run_tests
+      env:
+        - IMAGE=centos:centos7 TASK=tests COMPONENTS=udt,myproxy,ssh
+      arch: ppc64le
+    - <<: *run_tests
+      env:
+        - IMAGE=centos:centos7 TASK=tests COMPONENTS=gram5
+      arch: ppc64le
+
+    - &deploy
+      deploy: 
         - provider: releases
           on:
             tags: true
@@ -71,6 +83,7 @@ jobs:
             repo: gridcf/gct
           skip_cleanup: true
           script: bash travis-ci/upload_source_tarballs.sh gridcf
-
+    - <<: *deploy
+      arch: ppc64le
 
 # vim:ft=yaml:sw=2:sts=2:et
