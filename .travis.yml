@@ -83,4 +83,12 @@ jobs:
             repo: gridcf/gct
           skip_cleanup: true
           script: bash travis-ci/upload_source_tarballs.sh gridcf
+        - provider: script
+          arch: ppc64le
+          on:
+            tags: true
+            all_branches: false
+            repo: gridcf/gct
+          skip_cleanup: true
+          script: bash travis-ci/upload_source_tarballs.sh gridcf
 # vim:ft=yaml:sw=2:sts=2:et
