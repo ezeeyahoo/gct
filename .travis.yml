@@ -35,8 +35,8 @@ jobs:
       env:
         - IMAGE=centos:centos7 TASK=tests COMPONENTS=gram5
 
-    deploy: 
-      - &run_deploy
+    - &run_deployment
+        stage: deploy
         env:
           - IMAGE=centos:centos7 TASK=srpms
         sudo: required
@@ -48,11 +48,9 @@ jobs:
           - sudo apt-get update
           - sleep 5
           - sudo docker pull ${IMAGE}
-      - <<: *run_deploy
-        arch: ppc64le
 
-      script:
-      - travis-ci/setup_tasks.sh
+        script:
+        - travis-ci/setup_tasks.sh
       
       #PPC64LE
     - <<: *run_tests
@@ -63,10 +61,11 @@ jobs:
       env:
         - IMAGE=centos:centos7 TASK=tests COMPONENTS=gram5
       arch: ppc64le
-    - <<: *run_deploy
+    - <<: *run_deployment
       arch: ppc64le
 
-      deploy:
+      deploy: 
+        - arch: ppc64le
         - provider: releases
           on:
             tags: true
@@ -88,6 +87,7 @@ jobs:
           skip_cleanup: true
           script: bash travis-ci/upload_source_tarballs.sh gridcf
         - provider: script
+          arch: ppc64le
           on:
             tags: true
             all_branches: false
