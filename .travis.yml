@@ -65,7 +65,6 @@ jobs:
       arch: ppc64le
 
       deploy: 
-        - arch: ppc64le
         - provider: releases
           on:
             tags: true
@@ -87,7 +86,6 @@ jobs:
           skip_cleanup: true
           script: bash travis-ci/upload_source_tarballs.sh gridcf
         - provider: script
-          arch: ppc64le
           on:
             tags: true
             all_branches: false
