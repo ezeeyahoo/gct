@@ -35,7 +35,7 @@ jobs:
       env:
         - IMAGE=centos:centos7 TASK=tests COMPONENTS=gram5
 
-    - &run_deploy
+    deploy: &deploy
       env:
         - IMAGE=centos:centos7 TASK=srpms
       sudo: required
@@ -47,6 +47,9 @@ jobs:
         - sudo apt-get update
         - sleep 5
         - sudo docker pull ${IMAGE}
+    deploy: *deploy
+      arch:
+        - ppc64le
 
       script:
       - travis-ci/setup_tasks.sh
