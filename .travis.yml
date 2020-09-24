@@ -35,7 +35,7 @@ jobs:
       env:
         - IMAGE=centos:centos7 TASK=tests COMPONENTS=gram5
 
-    - stage: deploy
+    - &run_deploy
       env:
         - IMAGE=centos:centos7 TASK=srpms
       sudo: required
@@ -60,9 +60,10 @@ jobs:
       env:
         - IMAGE=centos:centos7 TASK=tests COMPONENTS=gram5
       arch: ppc64le
+    - <<: *run_deploy
+      arch: ppc64le
 
-      deploy: 
-        - arch: ppc64le
+      deploy:
         - provider: releases
           on:
             tags: true
