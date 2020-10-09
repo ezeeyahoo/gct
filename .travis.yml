@@ -5,6 +5,7 @@
 
 # Also, the following gram tests failed for all fedora versions:
 #   nonblocking-register-test.pl, register-callback-test.pl, register-test.pl
+arch: ppc64le
 jobs:
   include:
 
